@@ -1,42 +1,42 @@
 ﻿// See https://aka.ms/new-console-template for more information
 
-class PemrosesData {
-    public int DapatkanNilaiTerbesar<T>(T nilai1, T nilai2, T nilai3)
+class SimpleDataBase<T>
+{
+    private List<T> storedData;
+    private List<DateTime> inputDates;
+
+    public SimpleDataBase()
     {
-        Console.WriteLine($"Nilai 1: {nilai1}");
-
-        Console.WriteLine($"Nilai 2: {nilai2}");
-
-        Console.WriteLine($"Nilai 3: {nilai3}");
-
-        dynamic max = nilai1;
-
-        if (max <= nilai2)
-        {
-            max = nilai2;
-        }
-        if (max <= nilai3)
-        {
-            max = nilai3;
-        }
-
-        return max;
+        storedData = new List<T>();
+        inputDates = new List<DateTime>();
     }
-}
 
+    public void AddNewData(T data)
+    {
+        storedData.Add(data);
+        inputDates.Add(DateTime.Now);
+    }
+
+    public void PrintAllData()
+    {
+        for (int i = 0; i < storedData.Count; i++)
+        {
+            Console.WriteLine($"Data: {storedData[i]}, yang disimpan pada waktu Input Date: {inputDates[i]}");
+        }
+    }
+
+}
 
 class Program
 {
     static void Main(string[] args)
     {
-        PemrosesData pemroses = new PemrosesData();
+        SimpleDataBase<int> database = new SimpleDataBase<int>();
 
-        int nim1 = 40;
-        int nim2 = 00;
-        int nim3 = 67;
+        database.AddNewData(12);
+        database.AddNewData(34);
+        database.AddNewData(56);
 
-        int nilaiTerbesar = pemroses.DapatkanNilaiTerbesar(nim1, nim2, nim3);
-
-        Console.WriteLine($"Nilai terbesar {nilaiTerbesar}");
+        database.PrintAllData();
     }
 }
